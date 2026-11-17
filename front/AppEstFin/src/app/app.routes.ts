@@ -13,7 +13,7 @@ export const routes: Routes = [
     component: GastoListComponent
   },
   {
-    path: 'gasto',
+    path: 'gasto-detail/:id',
     component: GastoDetailComponent
   }
 ];

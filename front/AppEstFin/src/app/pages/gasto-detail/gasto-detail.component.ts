@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GastoService } from '../../servicios/gasto.service';
+import { Gasto } from '../../models/gasto.model';
 
 @Component({
   selector: 'app-gasto-detail',
@@ -10,7 +11,8 @@ import { GastoService } from '../../servicios/gasto.service';
 
 export class GastoDetailComponent {
 
-  gasto: any;
+  
+   @Input() gasto: Gasto | undefined = undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,6 +23,13 @@ export class GastoDetailComponent {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     console.log(id);
+    this.gasto = this.route.snapshot.data['gasto'] ?? [{
+      categoriaGasto: '',
+      descripcion: '',
+      fechaMovimiento: '',
+      id: 0,
+      monto: 0
+    }];
   }
 }
  

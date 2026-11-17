@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { GastoService } from '../../servicios/gasto.service';
+import { Gasto } from '../../models/gasto.model';
 
 @Component({
   selector: 'app-gasto-list',
@@ -7,8 +8,10 @@ import { GastoService } from '../../servicios/gasto.service';
   templateUrl: './gasto-list.component.html'
 })
 
+
+
 export class GastoListComponent {
-  gastos: any[] = [];
+  gastos: Gasto[] = [];
 
   constructor(
     private gastoService: GastoService
@@ -16,12 +19,26 @@ export class GastoListComponent {
 
 
   ngOnInit(): void {
-    this.gastoService.obtenerGastos();
+    this.gastoService.obtenerGastos().subscribe({
+      next: (data) => {
+        this.gastos = data;
+      },
+      error: (error) => { 
+        console.error('Error al obtener los gastos:', error);
+      }
+    });
   }
 
 
   verDetalle(id: number) {
+    this.gastoService.obtenerDetalle(id).subscribe((data: any) => {
+      console.log(data);
+      
+      // renderizar gasto-detail.component.html con la información obtenida
+      
+      navigation.navigate(['/gasto-detail', id], { state: { gasto: data } });
 
+    });
   }
 
 }
