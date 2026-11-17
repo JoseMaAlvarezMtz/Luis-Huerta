@@ -17,9 +17,9 @@ namespace AppEstFin.Controllers
         }
 
         // CONSULTAR CONSUMO
-        [HttpPost]
+        [HttpGet]
         [Route("ConsultarConsumo")]
-        public async Task<ActionResult<List<sp_CalcularTotalAPagarPorTarjeta>>> ConsultarConsumo(int id_usuario)
+        public async Task<ActionResult<List<sp_CalcularTotalAPagarPorTarjeta>>> ConsultarConsumo([FromQuery] int id_usuario)
         {
             var result = await _estimacionService.ObtenerDatosConsumo(id_usuario);
 
@@ -93,7 +93,7 @@ namespace AppEstFin.Controllers
         // DETALLE DE GASTO
         [HttpGet]
         [Route("ObtenerGasto")]
-        public async Task<IActionResult> ObtenerGasto(int idGasto)
+        public async Task<IActionResult> ObtenerGasto([FromQuery] int idGasto)
         {
             var gasto = await _estimacionService.ObtenerGasto(idGasto) ?? null;
 
